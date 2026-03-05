@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --wedding-cream: #FDFCF9;
+  --wedding-gold: #C5A059;
+  --wedding-gray: #717171;
+  --wedding-light-gray: #F2F2F2;
+  
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  background-color: var(--wedding-cream);
+  color: #1a1a1a;
+  font-style: normal !important; /* Force no italics */
+}
+
+.serif {
+  font-family: var(--font-serif);
+  font-style: normal !important;
+}
+
+.sans {
+  font-family: var(--font-sans);
+  font-style: normal !important;
+}
+
+/* Remove script font as user didn't mention it and wants contrast between Garamond and Montserrat */
+.script {
+  font-family: var(--font-serif);
+  font-style: normal !important;
+}
+
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--wedding-gold), transparent);
+  width: 100%;
+  max-width: 200px;
+  margin: 2rem auto;
+}
+
+.wedding-card {
+  background: white;
+  border: 1px solid rgba(197, 160, 89, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wedding-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(197, 160, 89, 0.08);
+}
+
+.btn-primary {
+  background-color: #C5A059;
+  color: white;
+  @apply px-8 py-3 rounded-full font-sans uppercase tracking-widest text-[10px] font-semibold transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shadow-lg inline-flex items-center justify-center gap-2;
+}
+
+.btn-outline {
+  border: 1px solid #C5A059;
+  color: #C5A059;
+  @apply px-8 py-3 rounded-full font-sans uppercase tracking-widest text-[10px] font-semibold transition-all duration-300 hover:bg-[#C5A059] hover:text-white hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
