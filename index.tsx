@@ -10,12 +10,12 @@ import {
   ChevronDown,
   ExternalLink,
   Heart,
-  Languages
+  Languages,
+  Hotel
 } from 'lucide-react';
 
 // --- Constants ---
 const HERO_IMAGE = "http://thedominguezjerez.com/wp-content/uploads/2026/01/DSC09176-copia-scaled.webp";
-const INVITATION_IMAGE = "http://thedominguezjerez.com/wp-content/uploads/2026/03/starina-y-antony-invitacion_2-scaled.png";
 const LOGO_WHITE = "http://thedominguezjerez.com/wp-content/uploads/2026/02/logo_Starina_Anthony_white.png";
 const RSVP_LINK = "https://thedominguezjerez.com/#rsvp";
 
@@ -32,17 +32,19 @@ const translations = {
       title: "Event Locations",
       subtitle: "Where & When",
       ceremony: "Ceremony - Church",
-      reception: "Reception - Hotel",
+      reception: "Reception",
+      hotel: "Suggested Hotel",
       timeCeremony: "3:00 PM",
-      timeReception: "Cocktail 5:00 PM / Dinner & Party 6:00 PM",
-      viewMap: "View on Google Maps"
+      timeReception: "Cocktail 5:00 PM / Reception 6:00 PM - 11:00 PM",
+      viewMap: "View on Google Maps",
+      bookNow: "BOOK UNDER THE DOMINGUEZJEREZ WEDDING"
     },
     dressCode: {
       title: "Formal Dress Code",
       subtitle: "Our Aesthetic",
       suggestions: "Suggestions: Pastel Tones",
       blocked: "Blocked Colors",
-      colors: ["Sand", "Mint", "Sky", "Lavender", "Cream"],
+      colors: ["Sand", "Mint", "Sky", "Lavender", "Cream", "Apricot", "Yellow", "Lilac"],
       blockedColors: ["Pink", "White", "Black"]
     },
     invitation: {
@@ -50,7 +52,8 @@ const translations = {
       subtitle: "Save the Date",
       heading: "Keep the details with you",
       description: "Download the digital version of our invitation to have all location and schedule details handy on your device.",
-      download: "Download Invitation"
+      download: "Download Invitation",
+      image: "http://thedominguezjerez.com/wp-content/uploads/2026/03/invitacion-ingles-starina_3-scaled.png"
     },
     rsvp: {
       title: "Confirm Attendance",
@@ -73,17 +76,19 @@ const translations = {
       title: "Lugares del Evento",
       subtitle: "Dónde & Cuándo",
       ceremony: "Ceremonia - Iglesia",
-      reception: "Recepción - Hotel",
+      reception: "Recepción",
+      hotel: "Hotel Sugerido",
       timeCeremony: "3:00 PM",
-      timeReception: "Cóctel 5:00 PM / Cena & Fiesta 6:00 PM",
-      viewMap: "Ver en Google Maps"
+      timeReception: "Cóctel 5:00 PM / Recepción 6:00 PM - 11:00 PM",
+      viewMap: "Ver en Google Maps",
+      bookNow: "RESERVAR BAJO LA BODA DOMINGUEZJEREZ"
     },
     dressCode: {
       title: "Código de Vestimenta Formal",
       subtitle: "Nuestra Estética",
       suggestions: "Sugerencias: Tonos Pastel",
       blocked: "Colores Bloqueados",
-      colors: ["Arena", "Menta", "Cielo", "Lavanda", "Crema"],
+      colors: ["Arena", "Menta", "Cielo", "Lavanda", "Crema", "Damasco", "Amarillo", "Lila"],
       blockedColors: ["Rosado", "Blanco", "Negro"]
     },
     invitation: {
@@ -91,7 +96,8 @@ const translations = {
       subtitle: "Reserva la Fecha",
       heading: "Lleva los detalles contigo",
       description: "Descarga la versión digital de nuestra invitación para tener todos los detalles de locación y horarios a mano.",
-      download: "Descargar Invitación"
+      download: "Descargar Invitación",
+      image: "http://thedominguezjerez.com/wp-content/uploads/2026/03/invitacion-espanol-starina_3-scaled.png"
     },
     rsvp: {
       title: "Confirmar Asistencia",
@@ -129,7 +135,10 @@ const LocationCard = ({
   time, 
   mapSrc, 
   mapLink,
-  viewMapText
+  viewMapText,
+  actionLink,
+  actionText,
+  icon: Icon = MapPin
 }: { 
   type: string; 
   name: string; 
@@ -138,6 +147,9 @@ const LocationCard = ({
   mapSrc: string; 
   mapLink: string;
   viewMapText: string;
+  actionLink?: string;
+  actionText?: string;
+  icon?: any;
 }) => (
   <motion.div 
     initial={{ opacity: 0, scale: 0.95 }}
@@ -148,7 +160,7 @@ const LocationCard = ({
   >
     <div className="flex items-center gap-3 mb-6">
       <div className="w-10 h-10 rounded-full bg-wedding-cream flex items-center justify-center text-wedding-gold border border-wedding-gold/20">
-        <MapPin size={20} />
+        <Icon size={20} />
       </div>
       <div>
         <span className="serif text-[10px] uppercase tracking-widest text-wedding-gold font-bold">{type}</span>
@@ -176,14 +188,26 @@ const LocationCard = ({
       />
     </div>
 
-    <a 
-      href={mapLink} 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className="btn-outline w-full"
-    >
-      {viewMapText} <ExternalLink size={14} />
-    </a>
+    <div className="flex flex-col gap-3">
+      <a 
+        href={mapLink} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="btn-outline w-full"
+      >
+        {viewMapText} <ExternalLink size={14} />
+      </a>
+      {actionLink && actionText && (
+        <a 
+          href={actionLink} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="btn-primary w-full text-[10px]"
+        >
+          {actionText} <ExternalLink size={14} />
+        </a>
+      )}
+    </div>
   </motion.div>
 );
 
@@ -288,7 +312,7 @@ const App = () => {
             date={t.hero.date}
           />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <LocationCard 
               type={t.locations.ceremony}
               name="St. Agatha Catholic Church"
@@ -301,12 +325,25 @@ const App = () => {
             
             <LocationCard 
               type={t.locations.reception}
+              name="94th Aero Squadron Restaurant"
+              address="1395 NW 57th Ave, Miami, FL 33126"
+              time={t.locations.timeReception}
+              mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.848834473852!2d-80.2831418237576!3d25.7755580773456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c9f576378d%3A0x889a2729a9972740!2s94th+Aero+Squadron+Restaurant!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+              mapLink="https://www.google.com/maps/search/?api=1&query=94th+Aero+Squadron+Restaurant+1395+NW+57th+Ave+Miami+FL+33126"
+              viewMapText={t.locations.viewMap}
+            />
+
+            <LocationCard 
+              type={t.locations.hotel}
               name="Hilton Miami Airport Blue Lagoon"
               address="5101 Blue Lagoon Dr, Miami, FL 33126"
-              time={t.locations.timeReception}
+              time="The Domínguez Wedding"
               mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.848834473852!2d-80.2831418237576!3d25.7755580773456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c9f576378d%3A0x889a2729a9972740!2sHilton%20Miami%20Airport%20Blue%20Lagoon!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
               mapLink="https://www.google.com/maps/search/?api=1&query=Hilton+Miami+Airport+Blue+Lagoon+5101+Blue+Lagoon+Dr+Miami+FL+33126"
               viewMapText={t.locations.viewMap}
+              actionLink="https://www.hilton.com/en/attend-my-event/miaahhh-idmg-40ea2ceb-a99c-4146-a473-339c560cd9b1/"
+              actionText={t.locations.bookNow}
+              icon={Hotel}
             />
           </div>
         </div>
@@ -322,7 +359,7 @@ const App = () => {
               <p className="serif text-sm uppercase tracking-[0.3em] mb-10 font-bold text-wedding-gold">{t.dressCode.suggestions}</p>
               <div className="flex justify-center gap-6 md:gap-10 flex-wrap">
                 {t.dressCode.colors.map((name, i) => {
-                  const colors = ['#E5E1D8', '#D4E2D9', '#D9E1E8', '#E8D9E1', '#E8E1D9'];
+                  const colors = ['#E5E1D8', '#D4E2D9', '#D9E1E8', '#E8D9E1', '#E8E1D9', '#ebb88c', '#eed680', '#b599bd'];
                   return (
                     <motion.div 
                       key={i}
@@ -391,7 +428,7 @@ const App = () => {
             >
               <div className="wedding-card p-6 rounded-2xl border-wedding-gold/20">
                 <img 
-                  src={INVITATION_IMAGE} 
+                  src={t.invitation.image} 
                   alt="Invitation Preview" 
                   className="w-full h-auto rounded-lg shadow-sm"
                   referrerPolicy="no-referrer"
@@ -410,8 +447,8 @@ const App = () => {
                 {t.invitation.description}
               </p>
               <a 
-                href={INVITATION_IMAGE} 
-                download="Invitation_Starina_Anthony.png"
+                href={t.invitation.image} 
+                download={`Invitation_Starina_Anthony_${lang}.png`}
                 className="btn-primary w-full md:w-auto text-xs py-4"
               >
                 <Download size={18} /> {t.invitation.download}
