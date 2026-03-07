@@ -37,14 +37,16 @@ const translations = {
       timeCeremony: "3:00 PM",
       timeReception: "Cocktail 5:00 PM / Reception 6:00 PM - 11:00 PM",
       viewMap: "View on Google Maps",
-      bookNow: "BOOK UNDER THE DOMINGUEZJEREZ WEDDING"
+      bookNow: "BOOK UNDER THE DOMINGUEZJEREZ WEDDING",
+      ceremonyIntro: "Our wedding will begin with a religious ceremony to start our marriage receiving God's blessing. Children are welcome to join us during the mass.",
+      receptionIntro: "We want to celebrate the beginning of our new stage with you and we would love for you to enjoy this celebration with us. Little ones can stay at home, as there will be no children at the party."
     },
     dressCode: {
       title: "Formal Dress Code",
       subtitle: "Our Aesthetic",
       suggestions: "Suggestions: Pastel Tones",
       blocked: "Blocked Colors",
-      colors: ["Sand", "Mint", "Sky", "Lavender", "Cream", "Apricot", "Yellow", "Lilac"],
+      colors: ["Mint", "Sky", "Lavender", "Apricot", "Yellow", "Lilac"],
       blockedColors: ["Pink", "White", "Black"]
     },
     invitation: {
@@ -53,7 +55,7 @@ const translations = {
       heading: "Keep the details with you",
       description: "Download the digital version of our invitation to have all location and schedule details handy on your device.",
       download: "Download Invitation",
-      image: "http://thedominguezjerez.com/wp-content/uploads/2026/03/invitacion-ingles-starina_3-scaled.png"
+      image: "http://thedominguezjerez.com/wp-content/uploads/2026/03/invitacion-espanol-starina_final_english-scaled.webp"
     },
     rsvp: {
       title: "Confirm Attendance",
@@ -81,14 +83,16 @@ const translations = {
       timeCeremony: "3:00 PM",
       timeReception: "Cóctel 5:00 PM / Recepción 6:00 PM - 11:00 PM",
       viewMap: "Ver en Google Maps",
-      bookNow: "RESERVAR BAJO LA BODA DOMINGUEZJEREZ"
+      bookNow: "RESERVAR BAJO LA BODA DOMINGUEZJEREZ",
+      ceremonyIntro: "Nuestra boda iniciará con una ceremonia religiosa para comenzar nuestro matrimonio recibiendo la bendición de Dios. Los niños son bienvenidos a la misa.",
+      receptionIntro: "Queremos celebrar contigo el inicio de nuestra nueva etapa y nos gustaría que disfrutes junto a nosotros esta celebración. Los pequeños pueden quedarse en casa, recordando que no habrá niños en el party."
     },
     dressCode: {
       title: "Código de Vestimenta Formal",
       subtitle: "Nuestra Estética",
       suggestions: "Sugerencias: Tonos Pastel",
       blocked: "Colores Bloqueados",
-      colors: ["Arena", "Menta", "Cielo", "Lavanda", "Crema", "Damasco", "Amarillo", "Lila"],
+      colors: ["Menta", "Cielo", "Lavanda", "Damasco", "Amarillo", "Lila"],
       blockedColors: ["Rosado", "Blanco", "Negro"]
     },
     invitation: {
@@ -97,7 +101,7 @@ const translations = {
       heading: "Lleva los detalles contigo",
       description: "Descarga la versión digital de nuestra invitación para tener todos los detalles de locación y horarios a mano.",
       download: "Descargar Invitación",
-      image: "http://thedominguezjerez.com/wp-content/uploads/2026/03/invitacion-espanol-starina_3-scaled.png"
+      image: "http://thedominguezjerez.com/wp-content/uploads/2026/03/invitacion-espanol-starina_final_espanol-scaled.webp"
     },
     rsvp: {
       title: "Confirmar Asistencia",
@@ -312,39 +316,52 @@ const App = () => {
             date={t.hero.date}
           />
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <LocationCard 
-              type={t.locations.ceremony}
-              name="St. Agatha Catholic Church"
-              address="1111 SW 107th Ave, Miami, FL 33174"
-              time={t.locations.timeCeremony}
-              mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.456671424755!2d-80.36940382375823!3d25.75545807735749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9be94f576378d%3A0x889a2729a9972740!2sSt.%20Agatha%20Catholic%20Church!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
-              mapLink="https://www.google.com/maps/search/?api=1&query=St.+Agatha+Catholic+Church+1111+SW+107th+Ave+Miami+FL+33174"
-              viewMapText={t.locations.viewMap}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="flex flex-col gap-6">
+              <p className="sans text-sm text-wedding-gray text-center font-medium leading-relaxed min-h-[4rem] flex items-center justify-center">
+                {t.locations.ceremonyIntro}
+              </p>
+              <LocationCard 
+                type={t.locations.ceremony}
+                name="St. Agatha Catholic Church"
+                address="1111 SW 107th Ave, Miami, FL 33174"
+                time={t.locations.timeCeremony}
+                mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.456671424755!2d-80.36940382375823!3d25.75545807735749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9be94f576378d%3A0x889a2729a9972740!2sSt.%20Agatha%20Catholic%20Church!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+                mapLink="https://www.google.com/maps/search/?api=1&query=St.+Agatha+Catholic+Church+1111+SW+107th+Ave+Miami+FL+33174"
+                viewMapText={t.locations.viewMap}
+              />
+            </div>
             
-            <LocationCard 
-              type={t.locations.reception}
-              name="94th Aero Squadron Restaurant"
-              address="1395 NW 57th Ave, Miami, FL 33126"
-              time={t.locations.timeReception}
-              mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.848834473852!2d-80.2831418237576!3d25.7755580773456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c9f576378d%3A0x889a2729a9972740!2s94th+Aero+Squadron+Restaurant!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
-              mapLink="https://www.google.com/maps/search/?api=1&query=94th+Aero+Squadron+Restaurant+1395+NW+57th+Ave+Miami+FL+33126"
-              viewMapText={t.locations.viewMap}
-            />
+            <div className="flex flex-col gap-6">
+              <p className="sans text-sm text-wedding-gray text-center font-medium leading-relaxed min-h-[4rem] flex items-center justify-center">
+                {t.locations.receptionIntro}
+              </p>
+              <LocationCard 
+                type={t.locations.reception}
+                name="94th Aero Squadron Restaurant"
+                address="1395 NW 57th Ave, Miami, FL 33126"
+                time={t.locations.timeReception}
+                mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.848834473852!2d-80.2831418237576!3d25.7755580773456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c9f576378d%3A0x889a2729a9972740!2s94th+Aero+Squadron+Restaurant!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+                mapLink="https://www.google.com/maps/search/?api=1&query=94th+Aero+Squadron+Restaurant+1395+NW+57th+Ave+Miami+FL+33126"
+                viewMapText={t.locations.viewMap}
+              />
+            </div>
 
-            <LocationCard 
-              type={t.locations.hotel}
-              name="Hilton Miami Airport Blue Lagoon"
-              address="5101 Blue Lagoon Dr, Miami, FL 33126"
-              time="The Domínguez Wedding"
-              mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.848834473852!2d-80.2831418237576!3d25.7755580773456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c9f576378d%3A0x889a2729a9972740!2sHilton%20Miami%20Airport%20Blue%20Lagoon!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
-              mapLink="https://www.google.com/maps/search/?api=1&query=Hilton+Miami+Airport+Blue+Lagoon+5101+Blue+Lagoon+Dr+Miami+FL+33126"
-              viewMapText={t.locations.viewMap}
-              actionLink="https://www.hilton.com/en/attend-my-event/miaahhh-idmg-40ea2ceb-a99c-4146-a473-339c560cd9b1/"
-              actionText={t.locations.bookNow}
-              icon={Hotel}
-            />
+            <div className="flex flex-col gap-6">
+              <div className="min-h-[4rem] hidden md:block" />
+              <LocationCard 
+                type={t.locations.hotel}
+                name="Hilton Miami Airport Blue Lagoon"
+                address="5101 Blue Lagoon Dr, Miami, FL 33126"
+                time="The Domínguez Wedding"
+                mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3592.848834473852!2d-80.2831418237576!3d25.7755580773456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b9c9f576378d%3A0x889a2729a9972740!2sHilton%20Miami%20Airport%20Blue%20Lagoon!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+                mapLink="https://www.google.com/maps/search/?api=1&query=Hilton+Miami+Airport+Blue+Lagoon+5101+Blue+Lagoon+Dr+Miami+FL+33126"
+                viewMapText={t.locations.viewMap}
+                actionLink="https://www.hilton.com/en/attend-my-event/miaahhh-idmg-40ea2ceb-a99c-4146-a473-339c560cd9b1/"
+                actionText={t.locations.bookNow}
+                icon={Hotel}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -359,7 +376,7 @@ const App = () => {
               <p className="serif text-sm uppercase tracking-[0.3em] mb-10 font-bold text-wedding-gold">{t.dressCode.suggestions}</p>
               <div className="flex justify-center gap-6 md:gap-10 flex-wrap">
                 {t.dressCode.colors.map((name, i) => {
-                  const colors = ['#E5E1D8', '#D4E2D9', '#D9E1E8', '#E8D9E1', '#E8E1D9', '#ebb88c', '#eed680', '#b599bd'];
+                  const colors = ['#D4E2D9', '#D9E1E8', '#E8D9E1', '#ebb88c', '#eed680', '#b599bd'];
                   return (
                     <motion.div 
                       key={i}
@@ -500,9 +517,22 @@ const App = () => {
       {/* Footer */}
       <footer className="py-16 px-6 text-center bg-white border-t border-wedding-gold/10">
         <p className="serif text-5xl text-wedding-gold mb-6 font-light uppercase tracking-tighter">Starina & Anthony</p>
-        <p className="sans text-[10px] uppercase tracking-[0.5em] text-wedding-gray font-bold">
-          {t.footer} • 2026
-        </p>
+        <div className="flex flex-col gap-4">
+          <p className="sans text-[10px] uppercase tracking-[0.5em] text-wedding-gray font-bold">
+            {t.footer} • 2026
+          </p>
+          <p className="sans text-[10px] uppercase tracking-[0.5em] text-wedding-gray font-bold">
+            {lang === 'es' ? 'Diseñado por' : 'Designed by'}{' '}
+            <a 
+              href="https://orvit.design" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-wedding-gold hover:opacity-70 transition-opacity underline underline-offset-4"
+            >
+              Orvit Design
+            </a>
+          </p>
+        </div>
       </footer>
     </div>
   );
