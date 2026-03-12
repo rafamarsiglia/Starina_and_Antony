@@ -41,6 +41,11 @@ const translations = {
       ceremonyIntro: "Our wedding will begin with a religious ceremony to start our marriage receiving God's blessing. Children are welcome to join us during the mass.",
       receptionIntro: "We want to celebrate the beginning of our new chapter with you. As much as we love your little ones, we would love to make it a date night for adults only!"
     },
+    gifts: {
+      title: "Gifts",
+      subtitle: "A Token of Love",
+      text: "Your presence is the greatest gift. Should you wish to honor us with one, a unique gift or a monetary contribution would be deeply appreciated."
+    },
     dressCode: {
       title: "Formal Dress Code",
       subtitle: "Our Aesthetic",
@@ -86,6 +91,11 @@ const translations = {
       bookNow: "RESERVAR BAJO LA BODA DOMINGUEZJEREZ",
       ceremonyIntro: "Nuestra boda iniciará con una ceremonia religiosa para comenzar nuestro matrimonio recibiendo la bendición de Dios. Los niños son bienvenidos a la misa.",
       receptionIntro: "Queremos celebrar contigo el inicio de nuestra nueva etapa y nos gustaría que disfrutes junto a nosotros esta celebración. Los pequeños pueden quedarse en casa, recordando que no habrá niños en el party."
+    },
+    gifts: {
+      title: "Regalos",
+      subtitle: "Un Detalle de Amor",
+      text: "Su presencia es el mejor regalo. Si desean honrarnos con uno, apreciamos sinceramente un regalo único y especial o una contribución monetaria."
     },
     dressCode: {
       title: "Código de Vestimenta Formal",
@@ -472,6 +482,24 @@ const App = () => {
               </a>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Gifts Section */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <SectionTitle title={t.gifts.title} subtitle={t.gifts.subtitle} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="wedding-card p-12 md:p-16 rounded-[2rem] border-wedding-gold/20"
+          >
+            <p className="serif text-2xl md:text-3xl text-wedding-gray font-light leading-relaxed">
+              {t.gifts.text}
+            </p>
+          </motion.div>
         </div>
       </section>
 
