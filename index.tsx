@@ -39,7 +39,7 @@ const translations = {
       viewMap: "View on Google Maps",
       bookNow: "BOOK UNDER THE DOMINGUEZJEREZ WEDDING",
       ceremonyIntro: "Our wedding will begin with a religious ceremony to start our marriage receiving God's blessing. Children are welcome to join us during the mass.",
-      receptionIntro: "We want to celebrate the beginning of our new stage with you and we would love for you to enjoy this celebration with us. Little ones can stay at home, as there will be no children at the party."
+      receptionIntro: "We want to celebrate the beginning of our new chapter with you. As much as we love your little ones, we would love to make it a date night for adults only!"
     },
     dressCode: {
       title: "Formal Dress Code",
