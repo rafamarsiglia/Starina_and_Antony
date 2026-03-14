@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Parisienne&family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
   --wedding-cream: #FDFCF9;
@@ -10,8 +10,27 @@
   --wedding-gray: #717171;
   --wedding-light-gray: #F2F2F2;
   
-  --font-serif: "Cormorant Garamond", serif;
-  --font-sans: "Montserrat", sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Mulish", sans-serif;
+  --font-script: "Parisienne", cursive;
+}
+
+.bg-radial-vignette {
+  background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.08) 100%);
+}
+
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  z-index: 1;
 }
 
 body {
@@ -19,12 +38,19 @@ body {
   overflow-x: hidden;
   background-color: var(--wedding-cream);
   color: #1a1a1a;
-  font-style: normal !important; /* Force no italics */
+  font-style: normal !important;
+  @apply antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  letter-spacing: 0.05em;
 }
 
 .serif {
   font-family: var(--font-serif);
   font-style: normal !important;
+  letter-spacing: 0.05em;
 }
 
 .sans {
@@ -32,10 +58,18 @@ body {
   font-style: normal !important;
 }
 
-/* Remove script font as user didn't mention it and wants contrast between Garamond and Montserrat */
 .script {
-  font-family: var(--font-serif);
+  font-family: var(--font-script);
   font-style: normal !important;
+  line-height: 1.8;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+section {
+  @apply py-32 md:py-48;
 }
 
 .divider-gold {
@@ -43,31 +77,31 @@ body {
   background: linear-gradient(90deg, transparent, var(--wedding-gold), transparent);
   width: 100%;
   max-width: 200px;
-  margin: 2rem auto;
+  margin: 2.5rem auto;
 }
 
 .wedding-card {
   background: white;
   border: 1px solid rgba(197, 160, 89, 0.1);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .wedding-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(197, 160, 89, 0.08);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(197, 160, 89, 0.12);
 }
 
 .btn-primary {
   background-color: #C5A059;
   color: white;
-  @apply px-8 py-3 rounded-full font-sans uppercase tracking-widest text-[10px] font-semibold transition-all duration-300 hover:opacity-90 hover:scale-105 active:scale-95 shadow-lg inline-flex items-center justify-center gap-2;
+  @apply px-10 py-4 rounded-full font-sans uppercase tracking-[0.2em] text-[10px] font-bold transition-all duration-500 hover:opacity-90 hover:scale-105 active:scale-95 shadow-lg inline-flex items-center justify-center gap-2;
 }
 
 .btn-outline {
   border: 1px solid #C5A059;
   color: #C5A059;
-  @apply px-8 py-3 rounded-full font-sans uppercase tracking-widest text-[10px] font-semibold transition-all duration-300 hover:bg-[#C5A059] hover:text-white hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2;
+  @apply px-10 py-4 rounded-full font-sans uppercase tracking-[0.2em] text-[10px] font-bold transition-all duration-500 hover:bg-[#C5A059] hover:text-white hover:scale-105 active:scale-95 inline-flex items-center justify-center gap-2;
 }
 
 ::-webkit-scrollbar {
@@ -77,4 +111,9 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Ribbon/Hero adjustment */
+img.w-\[24px\].scale-50.h-auto.object-contain.drop-shadow-md {
+    max-height: 80vh;
 }
