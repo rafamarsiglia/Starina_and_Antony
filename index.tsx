@@ -11,8 +11,10 @@ import {
   ExternalLink,
   Heart,
   Languages,
-  Hotel
+  Hotel,
+  X
 } from 'lucide-react';
+import EnvelopeInvitation from './components/EnvelopeInvitation';
 
 // --- Constants ---
 const HERO_IMAGE = "http://thedominguezjerez.com/wp-content/uploads/2026/01/DSC09176-copia-scaled.webp";
@@ -27,7 +29,7 @@ const translations = {
       and: "and",
       date: "JUNE 06, 2026"
     },
-    intro: "In love there are no distances, only hearts that beat at the same rhythm. We invite you to be part of our beginning.",
+    intro: "From Siuna, Nicaragua and Avon Lake, Ohio, our journeys eventually led us both to Miami. After first connecting through social media in 2021, life quietly prepared us for the moment our paths would finally cross. In 2024, an unexpected encounter brought us together and led to our first date, and from that day our love story truly began. With love in our hearts, we invite you to celebrate the beginning of our forever.",
     locations: {
       title: "Event Locations",
       subtitle: "Where & When",
@@ -35,11 +37,12 @@ const translations = {
       reception: "Reception",
       hotel: "Suggested Hotel",
       timeCeremony: "3:00 PM",
-      timeReception: "Cocktail 5:00 PM / Reception 6:00 PM - 11:00 PM",
+      timeReception: "Cocktail 5:00 PM\nReception 6:00 PM",
       viewMap: "View on Google Maps",
       bookNow: "BOOK UNDER THE DOMINGUEZJEREZ WEDDING",
       ceremonyIntro: "Our wedding will begin with a religious ceremony to start our marriage receiving God's blessing. Children are welcome to join us during the mass.",
-      receptionIntro: "We want to celebrate the beginning of our new chapter with you. As much as we love your little ones, we would love to make it a date night for adults only!"
+      receptionIntro: "We want to celebrate the beginning of our new chapter with you. As much as we love your little ones, we would love to make it a date night for adults only!",
+      hotelIntro: "If you are traveling from out of town, our recommendation for your stay is as follows."
     },
     gifts: {
       title: "Gifts",
@@ -47,11 +50,11 @@ const translations = {
       text: "Your presence is the greatest gift. Should you wish to honor us with one, a unique gift or a monetary contribution would be deeply appreciated."
     },
     dressCode: {
-      title: "Formal Dress Code",
-      subtitle: "Our Aesthetic",
+      title: "FORMAL ATTIRE",
+      subtitle: "DRESS CODE",
       suggestions: "Suggestions: Pastel Tones",
       blocked: "Blocked Colors",
-      colors: ["Mint", "Sky", "Lavender", "Apricot", "Yellow", "Lilac"],
+      colors: ["Mint", "Light Blue", "Lavender", "Apricot", "Yellow", "Lilac"],
       blockedColors: ["Pink", "White", "Black"]
     },
     invitation: {
@@ -78,7 +81,7 @@ const translations = {
       and: "y",
       date: "06 DE JUNIO, 2026"
     },
-    intro: "En el amor no hay distancias, solo corazones que laten al mismo ritmo. Te invitamos a ser parte de nuestro comienzo.",
+    intro: "Desde Siuna, Nicaragua y Avon Lake, Ohio, nuestros caminos finalmente nos llevaron a ambos a Miami. Después de conectarnos por primera vez a través de las redes sociales en 2021, la vida nos preparó silenciosamente para el momento en que nuestros caminos finalmente se cruzarían. En 2024, un encuentro inesperado nos unió y nos llevó a nuestra primera cita, y desde ese día nuestra historia de amor comenzó verdaderamente. Con amor en nuestros corazones, los invitamos a celebrar el comienzo de nuestro para siempre.",
     locations: {
       title: "Lugares del Evento",
       subtitle: "Dónde & Cuándo",
@@ -86,11 +89,12 @@ const translations = {
       reception: "Recepción",
       hotel: "Hotel Sugerido",
       timeCeremony: "3:00 PM",
-      timeReception: "Cóctel 5:00 PM / Recepción 6:00 PM - 11:00 PM",
+      timeReception: "Cóctel 5:00 PM\nRecepción 6:00 PM",
       viewMap: "Ver en Google Maps",
       bookNow: "RESERVAR BAJO LA BODA DOMINGUEZJEREZ",
       ceremonyIntro: "Nuestra boda iniciará con una ceremonia religiosa para comenzar nuestro matrimonio recibiendo la bendición de Dios. Los niños son bienvenidos a la misa.",
-      receptionIntro: "Queremos celebrar contigo el inicio de nuestra nueva etapa y nos gustaría que disfrutes junto a nosotros esta celebración. Los pequeños pueden quedarse en casa, recordando que no habrá niños en el party."
+      receptionIntro: "Queremos celebrar contigo el inicio de nuestra nueva etapa y nos gustaría que disfrutes junto a nosotros esta celebración. Los pequeños pueden quedarse en casa, recordando que no habrá niños en el party.",
+      hotelIntro: "Si viajas desde fuera, nuestra recomendación de estadía es la siguiente:"
     },
     gifts: {
       title: "Regalos",
@@ -98,11 +102,11 @@ const translations = {
       text: "Su presencia es el mejor regalo. Si desean honrarnos con uno, apreciamos sinceramente un regalo único y especial o una contribución monetaria."
     },
     dressCode: {
-      title: "Código de Vestimenta Formal",
-      subtitle: "Nuestra Estética",
+      title: "VESTIMENTA FORMAL",
+      subtitle: "CÓDIGO DE VESTIMENTA",
       suggestions: "Sugerencias: Tonos Pastel",
       blocked: "Colores Bloqueados",
-      colors: ["Menta", "Cielo", "Lavanda", "Damasco", "Amarillo", "Lila"],
+      colors: ["Menta", "Azul Claro", "Lavanda", "Damasco", "Amarillo", "Lila"],
       blockedColors: ["Rosado", "Blanco", "Negro"]
     },
     invitation: {
@@ -137,7 +141,7 @@ const SectionTitle = ({ title, subtitle, date }: { title: string; subtitle?: str
   >
     {subtitle && <span className="serif text-wedding-gold text-2xl block mb-2 uppercase tracking-widest">{subtitle}</span>}
     {date && <span className="serif text-wedding-gold text-5xl md:text-7xl block mb-6 font-light">{date}</span>}
-    <h2 className="sans text-4xl md:text-5xl font-light tracking-tight uppercase">{title}</h2>
+    <h2 className="serif text-4xl md:text-6xl font-light tracking-tight uppercase">{title}</h2>
     <div className="divider-gold" />
   </motion.div>
 );
@@ -170,23 +174,23 @@ const LocationCard = ({
     whileInView={{ opacity: 1, scale: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6 }}
-    className="wedding-card p-8 rounded-2xl flex flex-col h-full"
+    className="wedding-card p-10 rounded-2xl flex flex-col h-full"
   >
-    <div className="flex items-center gap-3 mb-6">
-      <div className="w-10 h-10 rounded-full bg-wedding-cream flex items-center justify-center text-wedding-gold border border-wedding-gold/20">
-        <Icon size={20} />
+    <div className="flex items-center gap-4 mb-8">
+      <div className="w-12 h-12 rounded-full bg-wedding-cream flex items-center justify-center text-wedding-gold border border-wedding-gold/20">
+        <Icon size={24} />
       </div>
       <div>
-        <span className="serif text-[10px] uppercase tracking-widest text-wedding-gold font-bold">{type}</span>
-        <h3 className="sans text-xl md:text-2xl font-semibold tracking-tight uppercase">{name}</h3>
+        <span className="serif text-[10px] uppercase tracking-[0.3em] text-wedding-gold font-bold">{type}</span>
+        <h3 className="serif text-xl md:text-2xl font-light tracking-tight uppercase">{name}</h3>
       </div>
     </div>
     
     <div className="space-y-4 mb-8 flex-grow">
-      <p className="sans text-sm text-wedding-gray leading-relaxed font-medium">{address}</p>
+      <p className="sans text-base text-wedding-gray leading-relaxed font-medium">{address}</p>
       <div className="flex items-center gap-2 text-wedding-gray">
-        <Clock size={16} className="text-wedding-gold" />
-        <span className="sans text-sm font-semibold">{time}</span>
+        <Clock size={18} className="text-wedding-gold" />
+        <span className="sans text-base font-semibold whitespace-pre-line">{time}</span>
       </div>
     </div>
 
@@ -227,7 +231,28 @@ const LocationCard = ({
 
 const App = () => {
   const [lang, setLang] = useState<'en' | 'es'>('en');
+  
+  // Initialize state from localStorage to avoid post-mount updates that trigger auto-play
+  const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('wedding_intro_seen') === 'true';
+    }
+    return false;
+  });
+  
+  const [isMainVisible, setIsMainVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('wedding_intro_seen') === 'true';
+    }
+    return false;
+  });
+
   const t = translations[lang];
+
+  const handleOpenComplete = () => {
+    setIsMainVisible(true);
+    localStorage.setItem('wedding_intro_seen', 'true');
+  };
 
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -235,7 +260,36 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-wedding-cream selection:bg-wedding-gold selection:text-white">
-      {/* Language Switcher */}
+      <EnvelopeInvitation 
+        isOpen={isEnvelopeOpen} 
+        onOpen={() => setIsEnvelopeOpen(true)}
+        onOpenComplete={handleOpenComplete}
+      />
+
+      <motion.div
+        initial={false}
+        animate={{ 
+          opacity: isMainVisible ? 1 : 0,
+          y: isMainVisible ? 0 : 20,
+          pointerEvents: isMainVisible ? 'auto' : 'none'
+        }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        {/* Close Invitation Button */}
+        <div className="fixed top-6 right-6 z-[60]">
+          <button 
+            onClick={() => {
+              setIsEnvelopeOpen(false);
+              setIsMainVisible(false);
+            }}
+            className="px-6 py-3 border border-wedding-gold/30 text-wedding-gold serif text-[10px] uppercase tracking-[0.4em] hover:bg-wedding-gold hover:text-white transition-all backdrop-blur-md bg-white/40 rounded-full flex items-center gap-2 shadow-sm"
+          >
+            <X size={14} />
+            {lang === 'es' ? 'Cerrar Invitación' : 'Close Invitation'}
+          </button>
+        </div>
+
+        {/* Language Switcher */}
       <div className="fixed bottom-6 right-6 z-50">
         <div className="bg-white/80 backdrop-blur-md border border-wedding-gold/20 p-1 rounded-full shadow-lg flex items-center gap-1">
           <button 
@@ -254,7 +308,7 @@ const App = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen md:h-[80vh] flex items-center justify-center overflow-hidden">
         <motion.div 
           style={{ y: y1 }}
           className="absolute inset-0 z-0"
@@ -263,7 +317,7 @@ const App = () => {
           <img 
             src={HERO_IMAGE} 
             alt="Starina & Anthony" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover md:object-[center_35%]"
             referrerPolicy="no-referrer"
           />
         </motion.div>
@@ -303,22 +357,22 @@ const App = () => {
       </section>
 
       {/* Intro Text */}
-      <section className="py-24 px-6 max-w-4xl mx-auto text-center">
+      <section className="px-6 max-w-5xl mx-auto text-center">
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.2 }}
         >
-          <Heart className="text-wedding-gold mx-auto mb-10" size={32} strokeWidth={1} />
-          <p className="serif text-2xl md:text-4xl leading-relaxed text-wedding-gray font-light">
-            "{t.intro}"
+          <Heart className="text-wedding-gold mx-auto mb-12" size={32} strokeWidth={1} />
+          <p className="script text-2xl md:text-3xl leading-relaxed text-wedding-gray font-light">
+            {t.intro}
           </p>
         </motion.div>
       </section>
 
       {/* Locations Section */}
-      <section className="py-24 px-6 bg-white">
+      <section className="px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <SectionTitle 
             title={t.locations.title} 
@@ -328,7 +382,7 @@ const App = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="flex flex-col gap-6">
-              <p className="sans text-sm text-wedding-gray text-center font-medium leading-relaxed min-h-[4rem] flex items-center justify-center">
+              <p className="serif italic text-base text-wedding-gray text-center leading-relaxed min-h-[5rem] flex items-center justify-center tracking-wide px-4">
                 {t.locations.ceremonyIntro}
               </p>
               <LocationCard 
@@ -343,7 +397,7 @@ const App = () => {
             </div>
             
             <div className="flex flex-col gap-6">
-              <p className="sans text-sm text-wedding-gray text-center font-medium leading-relaxed min-h-[4rem] flex items-center justify-center">
+              <p className="serif italic text-base text-wedding-gray text-center leading-relaxed min-h-[5rem] flex items-center justify-center tracking-wide px-4">
                 {t.locations.receptionIntro}
               </p>
               <LocationCard 
@@ -358,7 +412,9 @@ const App = () => {
             </div>
 
             <div className="flex flex-col gap-6">
-              <div className="min-h-[4rem] hidden md:block" />
+              <p className="serif italic text-base text-wedding-gray text-center leading-relaxed min-h-[5rem] flex items-center justify-center tracking-wide px-4">
+                {t.locations.hotelIntro}
+              </p>
               <LocationCard 
                 type={t.locations.hotel}
                 name="Hilton Miami Airport Blue Lagoon"
@@ -377,7 +433,7 @@ const App = () => {
       </section>
 
       {/* Dress Code Section */}
-      <section className="py-24 px-6 bg-wedding-cream">
+      <section className="px-6 bg-wedding-cream">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle title={t.dressCode.title} subtitle={t.dressCode.subtitle} />
           
@@ -441,8 +497,26 @@ const App = () => {
         </div>
       </section>
 
+      {/* Gifts Section */}
+      <section className="px-6 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <SectionTitle title={t.gifts.title} subtitle={t.gifts.subtitle} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="wedding-card p-12 md:p-16 rounded-[2rem] border-wedding-gold/20"
+          >
+            <p className="serif text-2xl md:text-3xl text-wedding-gray font-light leading-relaxed">
+              {t.gifts.text}
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Download Invitation Section */}
-      <section className="py-24 px-6 bg-white">
+      <section className="px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <SectionTitle title={t.invitation.title} subtitle={t.invitation.subtitle} />
           
@@ -485,26 +559,8 @@ const App = () => {
         </div>
       </section>
 
-      {/* Gifts Section */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle title={t.gifts.title} subtitle={t.gifts.subtitle} />
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="wedding-card p-12 md:p-16 rounded-[2rem] border-wedding-gold/20"
-          >
-            <p className="serif text-2xl md:text-3xl text-wedding-gray font-light leading-relaxed">
-              {t.gifts.text}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* RSVP Section */}
-      <section className="py-32 px-6 bg-wedding-cream relative overflow-hidden">
+      <section className="px-6 bg-wedding-cream relative overflow-hidden">
         <div className="absolute top-0 left-0 w-96 h-96 bg-wedding-gold/5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-[100px]" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-wedding-gold/5 rounded-full translate-x-1/2 translate-y-1/2 blur-[100px]" />
 
@@ -518,11 +574,11 @@ const App = () => {
           >
             <SectionTitle title={t.rsvp.title} subtitle={t.rsvp.subtitle} />
             
-            <div className="space-y-10">
-              <div className="flex flex-col items-center gap-3">
-                <Calendar className="text-wedding-gold mb-4" size={32} strokeWidth={1} />
-                <p className="serif text-sm uppercase tracking-[0.4em] font-bold text-wedding-gold">{t.rsvp.deadline}</p>
-                <p className="serif text-4xl md:text-5xl text-wedding-gold font-light">{t.rsvp.deadlineDate}</p>
+            <div className="space-y-12">
+              <div className="flex flex-col items-center gap-4">
+                <Calendar className="text-wedding-gold mb-6" size={40} strokeWidth={1} />
+                <p className="serif text-sm uppercase tracking-[0.5em] font-bold text-wedding-gold">{t.rsvp.deadline}</p>
+                <p className="serif text-5xl md:text-7xl text-wedding-gold font-light">{t.rsvp.deadlineDate}</p>
               </div>
               
               <p className="sans text-sm text-wedding-gray max-w-sm mx-auto font-medium">
@@ -544,7 +600,7 @@ const App = () => {
 
       {/* Footer */}
       <footer className="py-16 px-6 text-center bg-white border-t border-wedding-gold/10">
-        <p className="serif text-5xl text-wedding-gold mb-6 font-light uppercase tracking-tighter">Starina & Anthony</p>
+        <p className="serif text-4xl md:text-6xl text-wedding-gold mb-8 font-light uppercase tracking-[0.1em]">Starina & Anthony</p>
         <div className="flex flex-col gap-4">
           <p className="sans text-[10px] uppercase tracking-[0.5em] text-wedding-gray font-bold">
             {t.footer} • 2026
@@ -562,6 +618,7 @@ const App = () => {
           </p>
         </div>
       </footer>
+      </motion.div>
     </div>
   );
 };
