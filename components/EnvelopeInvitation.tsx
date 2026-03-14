@@ -1,89 +1,134 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import React, { useState, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 
-export default function EnvelopeInvitation({ isOpen, onOpen, onOpenComplete }) {
-  const [opened, setOpened] = useState(isOpen);
+interface EnvelopeInvitationProps {
+  isOpen: boolean;
+  onOpen: () => void;
+  onOpenComplete: () => void;
+}
+
+const EnvelopeInvitation: React.FC<EnvelopeInvitationProps> = ({ isOpen, onOpen, onOpenComplete }) => {
+  const [status, setStatus] = useState<'closed' | 'pressing' | 'opening' | 'open'>(isOpen ? 'open' : 'closed');
+
+  // Audio refs
+  const crackSound = useMemo(() => {
+    const audio = new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
+    audio.onerror = () => {}; // Silently handle load errors
+    return audio;
+  }, []);
 
   useEffect(() => {
-    setOpened(isOpen);
+    crackSound.volume = 0.2;
+  }, [crackSound]);
+
+  useEffect(() => {
+    if (isOpen && status === 'closed') {
+      handleOpenSequence();
+    } else if (!isOpen && status === 'open') {
+      handleCloseSequence();
+    }
   }, [isOpen]);
 
-  const openEnvelope = () => {
-    if (opened) return;
-    setOpened(true);
-    if (onOpen) onOpen();
+  const handleOpenSequence = () => {
+    setStatus('pressing');
+    try {
+      const playPromise = crackSound.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {}); // Ignore interaction errors
+      }
+    } catch (e) {}
 
     setTimeout(() => {
-      onOpenComplete && onOpenComplete();
-    }, 2000);
+      setStatus('opening');
+      
+      setTimeout(() => {
+        setStatus('open');
+        onOpenComplete();
+      }, 800);
+    }, 200);
   };
 
-  if (isOpen && opened && typeof window !== 'undefined' && localStorage.getItem('wedding_intro_seen') === 'true') {
-    // If it was already seen, we might want to hide it, but App handles that with opacity.
-    // However, the user's code is a fixed overlay.
-  }
+  const handleCloseSequence = () => {
+    setStatus('opening');
+    setTimeout(() => {
+      setStatus('closed');
+    }, 1200);
+  };
+
+  const handleSealClick = () => {
+    if (status === 'closed') {
+      onOpen();
+    }
+  };
 
   return (
-    <motion.div 
+    <motion.div
       initial={false}
-      animate={{ 
-        opacity: opened ? 0 : 1,
-        pointerEvents: opened ? 'none' : 'auto'
+      animate={{
+        opacity: status === 'open' ? 0 : 1,
+        pointerEvents: status === 'open' ? 'none' : 'auto'
       }}
-      transition={{ duration: 1, delay: 1.5 }}
-      className="fixed inset-0 flex items-center justify-center bg-[#f8f5f0] z-[100]"
+      transition={{ duration: 1, delay: status === 'open' ? 0.3 : 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#f8f5f0] overflow-hidden"
     >
-      <div className="relative w-[320px] h-[200px]">
-        {/* Envelope body */}
-        <div className="absolute bottom-0 w-full h-[120px] bg-[#efe6db] shadow-xl rounded-sm" />
-
-        {/* Envelope left flap */}
-        <div className="absolute bottom-0 left-0 w-0 h-0 
-        border-t-[120px] border-t-transparent 
-        border-r-[160px] border-r-[#e5d9cc]" />
-
-        {/* Envelope right flap */}
-        <div className="absolute bottom-0 right-0 w-0 h-0 
-        border-t-[120px] border-t-transparent 
-        border-l-[160px] border-l-[#e5d9cc]" />
-
-        {/* Top flap */}
+      <div className="absolute inset-0 bg-radial-vignette pointer-events-none" />
+      
+      {/* Centered Container for Wax Seal */}
+      <motion.div 
+        className="relative flex flex-col items-center justify-center gap-6"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+      >
+        {/* Wax Seal */}
         <motion.div
-          initial={{ rotateX: 0 }}
-          animate={{ rotateX: opened ? -180 : 0 }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
-          style={{ transformOrigin: "top" }}
-          className="absolute top-0 w-0 h-0
-          border-l-[160px] border-l-transparent
-          border-r-[160px] border-r-transparent
-          border-b-[100px] border-b-[#e5d9cc] z-[20]"
-        />
-
-        {/* Letter */}
-        <motion.div
-          initial={{ y: 0 }}
-          animate={{ y: opened ? -140 : 0 }}
-          transition={{ duration: 1.4, ease: "easeInOut", delay: 0.4 }}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[260px] h-[160px] bg-white shadow-lg rounded-sm flex items-center justify-center z-[10]"
+          className="relative z-40 cursor-pointer"
+          onClick={handleSealClick}
+          initial={false}
+          whileHover={status === 'closed' ? { scale: 1.05 } : {}}
+          whileTap={status === 'closed' ? { scale: 0.95 } : {}}
+          animate={
+            status === 'pressing' ? { scale: 0.98 } :
+            status === 'opening' || status === 'open' ? { 
+              y: -60,
+              opacity: 0,
+              scale: 1.1,
+              rotate: 5,
+            } : { 
+              scale: 1,
+              y: 0,
+              opacity: 1,
+              rotate: 0,
+            }
+          }
+          transition={{ 
+            duration: status === 'pressing' ? 0.2 : 0.8,
+            ease: "easeInOut"
+          }}
         >
-          <p className="text-[#c6a769] tracking-[0.4em] text-xs uppercase text-center px-4">
-            Starina & Anthony
-          </p>
+          <img 
+            src="http://thedominguezjerez.com/wp-content/uploads/2026/03/sello-de-parafina3-scaled.webp"
+            alt="Wax Seal"
+            className="w-[24px] scale-50 h-auto object-contain drop-shadow-md"
+            referrerPolicy="no-referrer"
+          />
         </motion.div>
 
-        {/* Wax seal */}
-        <motion.img
-          src="http://thedominguezjerez.com/wp-content/uploads/2026/03/sello-de-parafina3-scaled.webp"
-          className="absolute left-1/2 -translate-x-1/2 top-[70px] w-[38px] cursor-pointer drop-shadow-xl z-[30]"
-          onClick={openEnvelope}
-          animate={
-            opened
-              ? { scale: 1.4, opacity: 0, rotate: 25 }
-              : { scale: 1 }
-          }
-          transition={{ duration: 0.6 }}
-        />
-      </div>
+        {/* Instruction Text */}
+        <motion.p
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ 
+            opacity: status === 'closed' ? 0.6 : 0,
+            y: status === 'closed' ? 0 : 5
+          }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="serif text-wedding-gold text-[9px] uppercase tracking-[0.5em] font-medium"
+        >
+          Click on the seal
+        </motion.p>
+      </motion.div>
     </motion.div>
   );
-}
+};
+
+export default EnvelopeInvitation;

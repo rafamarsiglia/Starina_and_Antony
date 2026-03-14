@@ -232,26 +232,13 @@ const LocationCard = ({
 const App = () => {
   const [lang, setLang] = useState<'en' | 'es'>('en');
   
-  // Initialize state from localStorage to avoid post-mount updates that trigger auto-play
-  const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('wedding_intro_seen') === 'true';
-    }
-    return false;
-  });
-  
-  const [isMainVisible, setIsMainVisible] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('wedding_intro_seen') === 'true';
-    }
-    return false;
-  });
+  const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
+  const [isMainVisible, setIsMainVisible] = useState(false);
 
   const t = translations[lang];
 
   const handleOpenComplete = () => {
     setIsMainVisible(true);
-    localStorage.setItem('wedding_intro_seen', 'true');
   };
 
   const { scrollY } = useScroll();
